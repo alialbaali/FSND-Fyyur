@@ -280,7 +280,7 @@ def edit_venue_submission(venue_id):
 #  Delete
 #  ----------------------------------------------------------------
 
-@app.route('/venues/<venue_id>', methods=['DELETE'])
+@app.route('/venues/<int:venue_id>', methods=['DELETE'])
 def delete_venue(venue_id):
     try:
         Venue.query.filter(Venue.id == venue_id).delete()
@@ -298,7 +298,7 @@ def delete_venue(venue_id):
 @app.route('/artists')
 def artists():
     response = Artist.query.all()
-    return render_template('pages/artists.html', artists=response)
+        return render_template('pages/artists.html', artists=response)
 
 
 @app.route('/artists/search', methods=['POST'])
@@ -333,16 +333,16 @@ def show_artist(artist_id):
 
     for i in upcoming:
         upcoming_shows.append({
-            'artist_id': i[1],
-            'artist_name': i[2],
+            'venue_id': i[1],
+            'venue_name': i[2],
             'image_link': i[3],
             'start_time': str(i[4])
         })
 
     for i in past:
         past_shows.append({
-            'artist_id': i[1],
-            'artist_name': i[2],
+            'venue_id': i[1],
+            'venue_name': i[2],
             'image_link': i[3],
             'start_time': str(i[4])
         })
@@ -447,7 +447,6 @@ def shows():
 
 @app.route('/shows/create')
 def create_shows():
-    # renders form. do not touch.
     form = ShowForm()
     return render_template('forms/new_show.html', form=form)
 
